@@ -35,6 +35,11 @@ contacted you.
    no App Review needed. App Review is only required to serve *other people's* accounts.
 
 ## Connect it to your AI
+**Fastest:** `cd mcp-server && node src/setup.js --token YOUR_TOKEN` (add `--writes` later to enable publishing/replies). It registers the server in Claude Desktop for you; restart the app and ask *"Run meta_connection_status"*.
+
+**Claude Code / Cursor:** the repo root already has a `.mcp.json`. Export `META_ACCESS_TOKEN` in your shell, open the repo in `claude`, and approve the server.
+
+**Manual** config (Claude Desktop `claude_desktop_config.json` / Cursor `mcp.json`):
 Claude Desktop (`claude_desktop_config.json`) / Cursor (`mcp.json`):
 ```json
 {

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "social-media-manager": {
+      "command": "node",
+      "args": ["mcp-server/src/index.js"],
+      "env": {
+        "META_ACCESS_TOKEN": "${META_ACCESS_TOKEN}",
+        "META_ALLOW_WRITES": "${META_ALLOW_WRITES:-false}",
+        "CALENDAR_FILE": "mcp-server/data/calendar.json"
+      }
+    }
+  }
+}
