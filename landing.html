@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Desk: a free social media manager toolkit</title>
+<meta name="description" content="Plan content, run approvals, track performance and build ad plans in one local-first workspace. Free, no sign-up, runs in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1c2523;--muted:#6b7772;--line:#e5eae7;--paper:#f5f7f5;--green:#245b49;--green-d:#172b25;--green-l:#dcebe3;--gold:#d6a94c;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{letter-spacing:-.03em;line-height:1.12;margin:0}
+.btn{display:inline-block;border-radius:10px;padding:13px 22px;font-weight:700;font-size:15px;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:#183f32}
+.btn-light{background:#fff;border-color:var(--line)}.btn-light:hover{background:var(--paper)}
+/* nav */
+header{position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.02em}
+.mark{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#d6b46d;color:#1b3028;font-weight:900}
+.links{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:600;color:#44524c}
+.links a:hover{color:var(--green)}
+.links .btn{padding:9px 16px;font-size:14px;color:#fff}
+/* hero */
+.hero{text-align:center;padding:84px 0 64px;background:linear-gradient(#f5f7f5,#fff)}
+.hero h1{font-size:clamp(34px,5.5vw,60px);max-width:860px;margin:0 auto 20px;font-weight:800}
+.hero p.lead{font-size:19px;color:var(--muted);max-width:620px;margin:0 auto 32px}
+.hero small{display:block;margin-top:14px;color:var(--muted);font-size:13px}
+/* three blocks */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:24px 0 80px}
+.trio div{padding:26px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.trio h3{font-size:20px;margin-bottom:8px}.trio p{margin:0;color:var(--muted);font-size:15px}
+/* alternating */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0}
+.split.flip .copy{order:2}
+.split h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:14px}
+.split p{color:var(--muted);margin:0 0 12px;max-width:46ch}
+.tag{display:inline-block;background:var(--green-l);color:var(--green);font-weight:700;font-size:13px;padding:4px 12px;border-radius:999px;margin-bottom:14px}
+.mock{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:13px}
+.row:last-child{margin-bottom:0}.row b{font-weight:700}.row span.d{color:var(--muted);font-size:12px}
+.pill{border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;background:#edf1ef;color:#59635e;white-space:nowrap}
+.pill.r{background:#fff0d5;color:#8c6418}.pill.a{background:#e5f0ff;color:#345f9c}.pill.s{background:#e7e2ff;color:#5b4aa0}.pill.p{background:#dff3e8;color:#26724c}
+.flow{display:flex;gap:6px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.stats div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.stats small{display:block;color:var(--muted);font-size:11px}.stats strong{font-size:22px;letter-spacing:-.03em}
+.bars{display:flex;align-items:flex-end;gap:8px;height:90px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.bars i{flex:1;background:var(--green);border-radius:4px 4px 0 0;opacity:.85}.bars i:nth-child(3n){background:var(--gold)}
+/* tabs */
+.tools{background:var(--green-d);color:#fff;padding:80px 0;margin-top:40px}
+.tools h2{font-size:clamp(26px,3.6vw,40px);text-align:center;max-width:740px;margin:0 auto 12px}
+.tools .sub{text-align:center;color:#a9c0b4;margin:0 0 32px}
+.tabs{display:flex;justify-content:center;gap:8px;margin-bottom:32px}
+.tab{border:1px solid #3a5a4c;background:transparent;color:#c4d2ca;padding:10px 22px;border-radius:999px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.tab[aria-selected=true]{background:#d6b46d;border-color:#d6b46d;color:#1b3028}
+.grid{display:none;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid.on{display:grid}
+.grid div{background:#20392f;border:1px solid #2f4d40;border-radius:14px;padding:22px}
+.grid h3{font-size:17px;margin-bottom:6px}.grid p{margin:0;color:#a9c0b4;font-size:14px}
+/* cta + footer */
+.cta{text-align:center;padding:88px 0}
+.cta h2{font-size:clamp(28px,4vw,44px);margin-bottom:12px}.cta p{color:var(--muted);margin:0 auto 28px;max-width:52ch}
+.cta .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:28px 0;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.note{max-width:62ch}
+@media(max-width:860px){.trio,.grid{grid-template-columns:1fr}.split{grid-template-columns:1fr;gap:28px}.split.flip .copy{order:0}.links a:not(.btn){display:none}.hero{padding-top:56px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#top"><span class="mark">S</span>Social Desk</a>
+  <nav class="links" aria-label="Main">
+    <a href="#features">Features</a><a href="#tools">Tools</a><a href="#start">Get started</a>
+    <a href="index.html" class="btn btn-primary">Open the app</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <h1>A social media manager toolkit that runs in your browser</h1>
+  <p class="lead">Plan content, run client approvals, track results and draft ad plans in one workspace. No sign-up, no paid API, and your data stays on your device.</p>
+  <a class="btn btn-primary" href="index.html">Open the toolkit</a>
+  <small>Free and open source | Works offline | Export to CSV anytime</small>
+</div></section>
+
+<section class="wrap" id="features">
+  <div class="trio">
+    <div><h3>Plan your content</h3><p>Track every post by platform, format and publish date in one calendar.</p></div>
+    <div><h3>Get approvals</h3><p>Move posts from Draft to Published with a clear client review step.</p></div>
+    <div><h3>Measure results</h3><p>Log reach, likes, comments, shares and saves, and see your engagement rate.</p></div>
+  </div>
+
+  <div class="split">
+    <div class="copy"><span class="tag">Content calendar</span><h2>See everything you have planned</h2>
+      <p>Add posts for Instagram, Facebook, LinkedIn, X and YouTube. Search and filter by status or platform to find what you need.</p>
+      <p>Export the full list to CSV for client reports.</p></div>
+    <div class="mock" aria-hidden="true">
+      <div class="row"><div><b>Minimalist kitchen reveal</b><br><span class="d">Instagram | Reel | 02 Nov</span></div><span class="pill s">Scheduled</span></div>
+      <div class="row"><div><b>Client walkthrough carousel</b><br><span class="d">LinkedIn | Carousel | 05 Nov</span></div><span class="pill r">In Review</span></div>
+      <div class="row"><div><b>Before and after living room</b><br><span class="d">Facebook | Static post | 08 Nov</span></div><span class="pill">Draft</span></div>
+    </div>
+  </div>
+
+  <div class="split flip">
+    <div class="copy"><span class="tag">Approvals</span><h2>Keep unapproved work from going live</h2>
+      <p>Approval is separate from scheduling, so creative only reaches the schedule after your client says yes.</p></div>
+    <div class="mock" aria-hidden="true">
+      <div class="row"><b>Diwali offer post</b><span class="flow"><span class="pill">Draft</span><span class="pill r">In Review</span><span class="pill a">Approved</span></span></div>
+      <div class="row"><b>Studio tour Reel</b><span class="flow"><span class="pill s">Scheduled</span><span class="pill p">Published</span></span></div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="copy"><span class="tag">Analytics</span><h2>Know what is working</h2>
+      <p>Enter your post insights and the tracker totals your reach and engagements and works out the average engagement rate.</p></div>
+    <div class="mock" aria-hidden="true">
+      <div class="stats"><div><small>Total reach</small><strong>48.2k</strong></div><div><small>Engagements</small><strong>3.1k</strong></div><div><small>Avg. rate</small><strong>6.4%</strong></div></div>
+      <div class="bars"><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:95%"></i><i style="height:70%"></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="tools" id="tools"><div class="wrap">
+  <h2>Everything a social media manager needs, in one place</h2>
+  <p class="sub">Twelve tools across two workspaces.</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="t1" id="b1">Create and manage</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="t2" id="b2">Grow and plan</button>
+  </div>
+  <div class="grid on" id="t1" role="tabpanel" aria-labelledby="b1">
+    <div><h3>Content calendar</h3><p>Post tracker with search and filters.</p></div>
+    <div><h3>AI content studio</h3><p>Build prompts for captions, hooks, hashtags, carousels and Reel scripts.</p></div>
+    <div><h3>AI post maker</h3><p>Turn a topic into a ready-to-use post brief.</p></div>
+    <div><h3>Approvals</h3><p>A review queue for client handoff.</p></div>
+    <div><h3>Analytics</h3><p>Performance metrics for every published post.</p></div>
+    <div><h3>Reminders</h3><p>Follow-up tasks with optional browser notifications.</p></div>
+  </div>
+  <div class="grid" id="t2" role="tabpanel" aria-labelledby="b2" hidden>
+    <div><h3>Meta ad planner</h3><p>Budget, radius and targeting suggestions with a map preview.</p></div>
+    <div><h3>Competitor strategy</h3><p>Turn the public patterns you observe into an action plan.</p></div>
+    <div><h3>Lead keywords</h3><p>Keyword groups by service, city and buyer intent.</p></div>
+    <div><h3>Trends and songs</h3><p>Ideas for what to post next.</p></div>
+    <div><h3>Profile ideas</h3><p>Bio and profile suggestions for each brand.</p></div>
+    <div><h3>CSV export</h3><p>Take your posts into any spreadsheet.</p></div>
+  </div>
+</div></section>
+
+<section class="cta" id="start"><div class="wrap">
+  <h2>Start planning your content today</h2>
+  <p>Open <code>index.html</code> in your browser, or run a local server with <code>python -m http.server 8000</code>.</p>
+  <div class="btns"><a class="btn btn-primary" href="index.html">Open the toolkit</a><a class="btn btn-light" href="README.md">Read the README</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span class="brand"><span class="mark">S</span>Social Desk</span>
+  <span class="note">This toolkit does not publish to Instagram or call any AI service on its own. Your posts and metrics are stored only in this browser.</span>
+</div></footer>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(o){
+      var on=o===t,p=document.getElementById(o.getAttribute('aria-controls'));
+      o.setAttribute('aria-selected',on);p.classList.toggle('on',on);p.hidden=!on;
+    });
+  });});
+})();
+</script>
+</body>
+</html>

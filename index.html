@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Social Desk — Social Media Manager Toolkit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">S</span><div><strong>Social Desk</strong><small>MANAGER TOOLKIT</small></div></div>
+    <nav>
+      <button class="nav-item active" data-view="overview">▦ <span>Overview</span></button>
+      <button class="nav-item" data-view="calendar">▦ <span>Content calendar</span></button>
+      <button class="nav-item" data-view="studio">✦ <span>AI content studio</span></button>
+      <button class="nav-item" data-view="approvals">✓ <span>Approvals</span></button>
+      <button class="nav-item" data-view="analytics">↗ <span>Analytics</span></button>
+      <button class="nav-item" data-view="adplanner">◎ <span>Meta ad planner</span></button>
+      <button class="nav-item" data-view="competitors">⌕ <span>Competitor strategy</span></button>
+      <button class="nav-item" data-view="keywords">⌘ <span>Lead keywords</span></button>
+      <button class="nav-item" data-view="reminders">◷ <span>Reminders</span></button>
+      <button class="nav-item" data-view="postmaker">✦ <span>AI post maker</span></button>
+      <button class="nav-item" data-view="trends">↗ <span>Trends & songs</span></button>
+      <button class="nav-item" data-view="profiles">◎ <span>Profile ideas</span></button>
+    </nav>
+    <div class="sidebar-foot"><span class="status-dot"></span> Local workspace <small>Your data stays in this browser</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">WORKSPACE / SOCIAL</p><h1 id="page-title">Overview</h1></div>
+      <div class="top-actions"><button class="btn btn-light" id="export-btn">Export CSV</button><button class="btn btn-primary" id="new-post-btn">＋ New post</button></div>
+    </header>
+    <section id="view-overview" class="view active">
+      <div class="welcome panel"><div><p class="eyebrow light">YOUR CREATIVE CONTROL ROOM</p><h2>Plan smarter. Create consistently.</h2><p>Keep content, approvals and performance moving in one place.</p></div><div class="welcome-icon">✳</div></div>
+      <div class="stat-grid">
+        <article class="stat-card"><span>Planned content</span><strong id="stat-planned">0</strong><small>All tracked posts</small></article>
+        <article class="stat-card"><span>Awaiting approval</span><strong id="stat-review">0</strong><small>Needs client feedback</small></article>
+        <article class="stat-card"><span>Scheduled</span><strong id="stat-scheduled">0</strong><small>Ready to publish</small></article>
+        <article class="stat-card"><span>Published</span><strong id="stat-published">0</strong><small>Completed posts</small></article>
+      </div>
+      <div class="section-head"><div><p class="eyebrow">KEEP THINGS MOVING</p><h2>Upcoming content</h2></div><button class="text-btn" data-go="calendar">View calendar →</button></div>
+      <div class="panel table-wrap"><table><thead><tr><th>Content</th><th>Platform</th><th>Publish date</th><th>Status</th></tr></thead><tbody id="upcoming-body"></tbody></table><div id="upcoming-empty" class="empty">No content yet. Create your first post to get started.</div></div>
+      <div class="tip"><strong>Workflow tip</strong><span>Keep client approval separate from scheduling so unapproved creative never gets published by mistake.</span></div>
+    </section>
+    <section id="view-calendar" class="view">
+      <div class="section-head"><div><p class="eyebrow">PLAN THE WEEK</p><h2>Content calendar</h2></div><button class="btn btn-primary" id="calendar-new-btn">＋ Add content</button></div>
+      <div class="filters"><input id="search-posts" placeholder="Search content…" aria-label="Search content"><select id="filter-status"><option value="">All statuses</option><option>Draft</option><option>In Review</option><option>Approved</option><option>Scheduled</option><option>Published</option></select><select id="filter-platform"><option value="">All platforms</option><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>X</option><option>YouTube</option></select></div>
+      <div class="panel table-wrap"><table><thead><tr><th>Content / campaign</th><th>Format</th><th>Platform</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="posts-body"></tbody></table><div id="posts-empty" class="empty">Nothing matches these filters.</div></div>
+    </section>
+    <section id="view-studio" class="view">
+      <div class="section-head"><div><p class="eyebrow">IDEA TO BRIEF</p><h2>AI content studio</h2></div></div>
+      <div class="studio-grid">
+        <form id="prompt-form" class="panel form-panel">
+          <label>Brand / client<input id="brand" value="Indetail Design Studio" required></label>
+          <label>Industry<select id="industry"><option>Interior design & architecture</option><option>Healthcare</option><option>Food & hospitality</option><option>Personal brand</option><option>Retail</option><option>Other</option></select></label>
+          <label>Platform<select id="studio-platform"><option>Instagram</option><option>LinkedIn</option><option>Facebook</option><option>YouTube</option><option>X</option></select></label>
+          <label>Content type<select id="content-type"><option>Reel script</option><option>Carousel post</option><option>Single-image post</option><option>Story sequence</option><option>Caption and hashtags</option><option>Campaign idea</option></select></label>
+          <label>Topic / project<input id="topic" placeholder="e.g. Before-and-after living room project" required></label>
+          <label>Tone<select id="tone"><option>Premium, modern and clear</option><option>Friendly and educational</option><option>Bold and trendy</option><option>Professional and informative</option><option>Emotional storytelling</option></select></label>
+          <label>Goal<select id="goal"><option>Engagement</option><option>Reach and awareness</option><option>Leads and enquiries</option><option>Education</option><option>Portfolio showcase</option></select></label>
+          <button class="btn btn-primary" type="submit">Generate prompt</button>
+        </form>
+        <div class="panel output-panel"><div class="output-head"><div><p class="eyebrow">READY TO USE</p><h3>Creative brief prompt</h3></div><button class="btn btn-light" id="copy-prompt">Copy prompt</button></div><textarea id="prompt-output" placeholder="Your tailored prompt will appear here…" rows="18"></textarea><p class="muted">This builds a reusable prompt; paste it into your preferred AI assistant to generate the content.</p></div>
+      </div>
+    </section>
+    <section id="view-approvals" class="view">
+      <div class="section-head"><div><p class="eyebrow">CLIENT HANDOFF</p><h2>Approval queue</h2></div></div>
+      <div id="approval-list" class="approval-list"></div><div id="approval-empty" class="empty panel">No posts waiting for review. Nice work.</div>
+    </section>
+    <section id="view-analytics" class="view">
+      <div class="section-head"><div><p class="eyebrow">MEASURE WHAT MATTERS</p><h2>Performance tracker</h2></div><button class="btn btn-primary" id="metrics-new-btn">＋ Add metrics</button></div>
+      <div class="stat-grid analytics-stats"><article class="stat-card"><span>Total reach</span><strong id="metric-reach">0</strong><small>Across tracked posts</small></article><article class="stat-card"><span>Total engagements</span><strong id="metric-engagement">0</strong><small>Likes, comments, shares, saves</small></article><article class="stat-card"><span>Average engagement rate</span><strong id="metric-rate">0%</strong><small>Engagements ÷ reach</small></article></div>
+      <div class="panel table-wrap"><table><thead><tr><th>Post</th><th>Reach</th><th>Likes</th><th>Comments</th><th>Shares</th><th>Saves</th><th>Actions</th></tr></thead><tbody id="metrics-body"></tbody></table><div id="metrics-empty" class="empty">Add metrics to start tracking results.</div></div>
+    </section>
+
+    <section id="view-adplanner" class="view">
+      <div class="section-head"><div><p class="eyebrow">LOCAL TARGETING + CAMPAIGN PLANNING</p><h2>Meta ad planner</h2></div></div>
+      <div class="notice"><strong>Planning mode:</strong> this tool estimates targeting and budget suggestions. It does not launch ads or guarantee Meta delivery results. Verify audience size and policy eligibility in Meta Ads Manager before publishing.</div>
+      <div class="studio-grid">
+        <form id="ad-form" class="panel form-panel">
+          <label>Business / offer<input id="ad-business" required placeholder="e.g. Interior design consultation"></label>
+          <label>Campaign goal<select id="ad-goal"><option>Leads</option><option>Messages</option><option>Website traffic</option><option>Awareness</option><option>Engagement</option></select></label>
+          <label>Target location<input id="ad-location" required value="Vadodara, Gujarat, India"></label>
+          <div class="two-col"><label>Radius (km)<input id="ad-radius" type="number" min="1" max="80" value="10" required></label><label>Daily budget (₹)<input id="ad-daily" type="number" min="100" value="500" required></label></div>
+          <label>Audience / service details<textarea id="ad-audience" rows="3" placeholder="e.g. homeowners, new flat owners, premium renovation"></textarea></label>
+          <label>Run duration (days)<input id="ad-days" type="number" min="1" max="90" value="14" required></label>
+          <button class="btn btn-primary" type="submit">Build ad plan</button>
+        </form>
+        <div class="panel output-panel"><div class="output-head"><div><p class="eyebrow">CAMPAIGN BLUEPRINT</p><h3>Suggested setup</h3></div><button class="btn btn-light" id="copy-ad-plan">Copy plan</button></div><div id="ad-plan-output" class="generated-output">Complete the form to create a campaign draft.</div><div id="map-actions" class="map-actions"></div></div>
+      </div>
+      <div class="panel map-panel"><div class="section-head"><div><p class="eyebrow">LOCATION CHECK</p><h3>Target area map</h3></div></div><div id="map-frame" class="map-frame"><p>Enter a target location and build an ad plan to preview the area.</p></div><p class="muted">Use this map to validate the area, not as a guarantee of Meta targeting boundaries. Confirm location and radius inside Ads Manager.</p></div>
+    </section>
+    <section id="view-competitors" class="view">
+      <div class="section-head"><div><p class="eyebrow">PUBLIC PROFILE REVIEW</p><h2>Competitor strategy</h2></div></div>
+      <div class="notice"><strong>Accuracy note:</strong> this tool does not scrape Instagram or access private analytics. Enter observed public metrics and content patterns to build a structured strategy.</div>
+      <form id="competitor-form" class="panel form-panel wide-form">
+        <label>Your brand / niche<input id="comp-brand" required value="Interior design studio"></label>
+        <div class="two-col"><label>Competitor 1 profile URL<input id="comp-url1" placeholder="https://www.instagram.com/profile/"></label><label>Observed followers<input id="comp-followers1" type="number" min="0" placeholder="e.g. 12500"></label></div>
+        <div class="two-col"><label>Competitor 2 profile URL<input id="comp-url2" placeholder="https://www.instagram.com/profile/"></label><label>Observed followers<input id="comp-followers2" type="number" min="0" placeholder="e.g. 8400"></label></div>
+        <div class="two-col"><label>Competitor 3 profile URL<input id="comp-url3" placeholder="https://www.instagram.com/profile/"></label><label>Observed followers<input id="comp-followers3" type="number" min="0" placeholder="e.g. 5100"></label></div>
+        <label>Observed content patterns / best posts<textarea id="comp-notes" rows="4" placeholder="e.g. walkthrough reels perform well, frequent before/after, comments ask about pricing…"></textarea></label>
+        <button class="btn btn-primary" type="submit">Create competitor strategy</button>
+      </form>
+      <div class="panel output-panel output-wide"><div class="output-head"><div><p class="eyebrow">GROWTH ACTIONS</p><h3>Competitive analysis</h3></div><button class="btn btn-light" id="copy-comp-plan">Copy strategy</button></div><div id="comp-output" class="generated-output">Add competitor observations to get a practical strategy.</div></div>
+    </section>
+    <section id="view-keywords" class="view">
+      <div class="section-head"><div><p class="eyebrow">DISCOVERY + LEAD GENERATION</p><h2>Lead keywords</h2></div></div>
+      <div class="studio-grid">
+        <form id="keyword-form" class="panel form-panel">
+          <label>Service / product<input id="kw-service" required placeholder="e.g. modular kitchen design"></label>
+          <label>Target city / area<input id="kw-location" value="Vadodara" required></label>
+          <label>Ideal customer<input id="kw-customer" placeholder="e.g. new homeowners, clinic owners"></label>
+          <label>Lead intent<select id="kw-intent"><option>High purchase intent</option><option>Research and comparison</option><option>Local service discovery</option><option>Problem / solution</option></select></label>
+          <button class="btn btn-primary" type="submit">Generate keyword groups</button>
+        </form>
+        <div class="panel output-panel"><div class="output-head"><div><p class="eyebrow">KEYWORD STARTER LIST</p><h3>Search + ad angles</h3></div><button class="btn btn-light" id="copy-keywords">Copy keywords</button></div><div id="keyword-output" class="generated-output">Enter your service and location to generate keyword ideas.</div><p class="muted">Validate search volume, cost, and policy restrictions with Keyword Planner and Meta Ads Manager. These are ideas, not measured demand.</p></div>
+      </div>
+    </section>
+    <section id="view-reminders" class="view">
+      <div class="section-head"><div><p class="eyebrow">FOLLOW-UP WITHOUT FORGETTING</p><h2>Reminders</h2></div></div>
+      <div class="studio-grid">
+        <form id="reminder-form" class="panel form-panel">
+          <label>Reminder title<input id="rem-title" required placeholder="e.g. Follow up on ad leads"></label>
+          <label>Date and time<input id="rem-datetime" type="datetime-local" required></label>
+          <label>Related client / campaign<input id="rem-related" placeholder="Optional"></label>
+          <button class="btn btn-primary" type="submit">Add reminder</button>
+          <p class="muted">Browser notifications require permission and this page to remain open. Reminders are stored in this browser only.</p>
+          <button class="btn btn-light" type="button" id="enable-notifications">Enable browser notifications</button>
+        </form>
+        <div class="panel output-panel"><div class="output-head"><div><p class="eyebrow">YOUR TASK LIST</p><h3>Upcoming reminders</h3></div></div><div id="reminder-list" class="reminder-list"></div><div id="reminder-empty" class="empty">No reminders yet.</div></div>
+      </div>
+    </section>
+
+  </main>
+  <dialog id="post-dialog">
+    <form id="post-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">CONTENT ITEM</p><h2 id="dialog-title">Add content</h2></div><button type="button" class="icon-btn" id="close-dialog" aria-label="Close">×</button></div>
+      <input type="hidden" id="post-id">
+      <label>Post / campaign title<input id="post-title" required placeholder="e.g. Minimalist kitchen reveal"></label>
+      <div class="two-col"><label>Platform<select id="post-platform"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>X</option><option>YouTube</option></select></label><label>Format<select id="post-format"><option>Reel</option><option>Carousel</option><option>Static post</option><option>Story</option><option>Video</option><option>Article</option></select></label></div>
+      <div class="two-col"><label>Publish date<input id="post-date" type="date" required></label><label>Status<select id="post-status"><option>Draft</option><option>In Review</option><option>Approved</option><option>Scheduled</option><option>Published</option></select></label></div>
+      <label>Caption / notes<textarea id="post-notes" rows="3" placeholder="Caption draft, creative direction or approval notes…"></textarea></label>
+      <div class="dialog-actions"><button type="button" class="btn btn-light" id="cancel-dialog">Cancel</button><button type="submit" class="btn btn-primary">Save content</button></div>
+    </form>
+  </dialog>
+  <dialog id="metrics-dialog">
+    <form id="metrics-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">POST INSIGHTS</p><h2>Add performance metrics</h2></div><button type="button" class="icon-btn" id="close-metrics" aria-label="Close">×</button></div>
+      <label>Published post<select id="metric-post" required></select></label>
+      <div class="two-col"><label>Reach<input id="m-reach" type="number" min="0" value="0" required></label><label>Likes<input id="m-likes" type="number" min="0" value="0" required></label><label>Comments<input id="m-comments" type="number" min="0" value="0" required></label><label>Shares<input id="m-shares" type="number" min="0" value="0" required></label><label>Saves<input id="m-saves" type="number" min="0" value="0" required></label></div>
+      <div class="dialog-actions"><button type="button" class="btn btn-light" id="cancel-metrics">Cancel</button><button type="submit" class="btn btn-primary">Save metrics</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
