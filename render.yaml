@@ -1,0 +1,20 @@
+# One-click deploy on Render (https://render.com): New + > Blueprint > pick this repo.
+services:
+  - type: web
+    name: social-media-manager-mcp
+    runtime: docker
+    dockerfilePath: ./mcp-server/Dockerfile
+    dockerContext: ./mcp-server
+    plan: free
+    healthCheckPath: /healthz
+    envVars:
+      - key: MCP_SIGNING_SECRET
+        generateValue: true
+      - key: MCP_ADMIN_PASSWORD     # you choose this (12+ chars); typed on the consent page when connecting an AI app
+        sync: false
+      - key: PUBLIC_URL             # set to https://<your-service>.onrender.com after the first deploy
+        sync: false
+      - key: META_ACCESS_TOKEN      # your Meta token
+        sync: false
+      - key: META_ALLOW_WRITES
+        value: "false"

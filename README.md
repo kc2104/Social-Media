@@ -24,7 +24,7 @@ Then open http://localhost:8000.
 - AI prompt builder copies prompts; it does not call an AI API by itself.
 
 ## AI / MCP access to Meta
-The `mcp-server/` folder is an MCP server that gives AI assistants access to your Instagram/Facebook account via Meta's official Graph API (token-based, rate-limited, writes off by default). See `mcp-server/README.md`.
+The `mcp-server/` folder is an MCP server that gives AI assistants access to your Instagram/Facebook account via Meta's official Graph API (token-based, rate-limited, writes off by default). Runs locally (Claude Desktop/Code/Cursor) or hosted for Claude chat, ChatGPT and Gemini. See `mcp-server/README.md`.
 
 ## Suggested next steps
 1. Add your clients/brands and customize platform options.

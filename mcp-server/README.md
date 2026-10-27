@@ -60,6 +60,40 @@ Claude Code: `claude mcp add social-media-manager -e META_ACCESS_TOKEN=... -- no
 
 Start read-only. When you trust it, set `META_ALLOW_WRITES` to `true`. All options are in `.env.example`.
 
+## Use it from Claude chat, ChatGPT, Gemini and other AI apps (hosted mode)
+Desktop apps can launch the server locally (above). Web/mobile chat apps can't, so you host the same server online
+and add its URL as a **custom connector**. The AI app talks to *your* server; your server talks to Meta with *your* token.
+
+```
+Claude / ChatGPT / Gemini  --(OAuth + Streamable HTTP)-->  your server (/mcp)  --(Graph API + your token)-->  Meta
+```
+
+**1. Deploy** (any host that runs Node or Docker). On Render: *New > Blueprint*, pick this repo (`render.yaml` is included).
+Set `META_ACCESS_TOKEN`, `MCP_ADMIN_PASSWORD` (12+ chars, your choice), and after the first deploy `PUBLIC_URL`
+(`https://<name>.onrender.com`). Check `https://<name>.onrender.com/healthz`.
+Locally: `PUBLIC_URL=http://localhost:8787 MCP_SIGNING_SECRET=$(openssl rand -hex 32) MCP_ADMIN_PASSWORD=... META_ACCESS_TOKEN=... npm run start:http`.
+(Free hosts sleep when idle and have a temporary disk, so the first request is slow and the calendar file resets; use a paid
+instance or a volume for the calendar.)
+
+**2. Add the connector** with the URL `https://<name>.onrender.com/mcp`:
+| App | Where |
+|---|---|
+| Claude (claude.ai / mobile) | Settings > Connectors > Add custom connector |
+| ChatGPT | Settings > Connectors > Advanced > Developer mode, then Create, Authentication = OAuth (paid plans, beta) |
+| Gemini Enterprise | Admin registers a custom MCP server (Streamable HTTP + OAuth) |
+| Gemini consumer app / others | Paste the URL where custom MCP servers are accepted; clients that only take a header can use `MCP_BEARER_TOKEN` |
+
+Menu names change; follow each app's current "custom MCP connector" docs.
+
+**3. Approve.** The app opens your server's consent page; enter `MCP_ADMIN_PASSWORD`. Then ask: *"Run meta_connection_status"*.
+
+**Security model**
+- Single owner: nobody can connect without your password (5 wrong tries locks that IP for 15 min). OAuth uses PKCE and exact redirect-URI matching.
+- Tokens are signed and stateless: access 1 h, refresh 30 days. Change `MCP_SIGNING_SECRET` to disconnect every app instantly.
+- Keep `META_ALLOW_WRITES=false` until you trust it. Even then, AI apps ask you to confirm tool calls; review publishes/DMs.
+- Your Meta token lives only in the server's environment variables, never in the AI app or the repo.
+- Long-lived Meta tokens expire after ~60 days; renew and update the env var.
+
 ## Tools
 | Tool | Type |
 |---|---|
@@ -75,8 +109,8 @@ Example prompts: "Summarise how my last 10 posts performed", "Draft replies to u
 and show me before sending", "Add 3 Reel ideas for next week to the calendar as Draft".
 
 ## Test
-`npm test` runs 15 end-to-end checks (real stdio server vs. a mock Graph API): write guard, dry-run publish,
-rate-limit pause, write cap, token redaction, calendar.
+`npm test` runs 28 end-to-end checks: stdio server vs. a mock Graph API (write guard, dry-run publish, rate-limit pause,
+write cap, token redaction, calendar) and the hosted server (OAuth + PKCE flow, lockout, token forgery, MCP over HTTP).
 
 ## Notes
 - Meta changes metric names and API versions; set `META_GRAPH_VERSION` and pass `metrics` explicitly if a metric is rejected.
