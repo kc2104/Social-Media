@@ -23,6 +23,9 @@ Then open http://localhost:8000.
 - Do not commit API tokens, client passwords, or private customer data.
 - AI prompt builder copies prompts; it does not call an AI API by itself.
 
+## AI / MCP access to Meta
+The `mcp-server/` folder is an MCP server that gives AI assistants access to your Instagram/Facebook account via Meta's official Graph API (token-based, rate-limited, writes off by default). See `mcp-server/README.md`.
+
 ## Suggested next steps
 1. Add your clients/brands and customize platform options.
 2. Connect an AI provider through a secure backend if you want one-click generation.
